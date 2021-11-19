@@ -1,0 +1,645 @@
+11)
+void main() => runApp(
+      MaterialApp(
+        home: Home(),
+      ),
+    );
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Álbum de Fotos"),
+        backgroundColor: Colors.green,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                    "https://images.pexels.com/photos/213784/pexels-photo-213784.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213784/pexels-photo-213784.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213785/pexels-photo-213785.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213786/pexels-photo-213786.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213787/pexels-photo-213787.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213789/pexels-photo-213789.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213790/pexels-photo-213790.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DescricaoFoto(
+                          'Nova York, EUA',
+                          'A cidade de Nova York compreende 5 distritos situados' +
+                              ' no encontro do rio Hudson com o Oceano Atlântico. ' +
+                              'No centro da cidade fica Manhattan, um distrito com ' +
+                              'alta densidade demográfica que está entre os principais' +
+                              ' centros comerciais, financeiros e culturais do mundo (Wikipedia).'),
+                    ),
+                  );
+                },
+                child: Image.network(
+                  "https://images.pexels.com/photos/213791/pexels-photo-213791.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DescricaoFoto extends StatelessWidget {
+  final String cidade, descricao;
+
+  DescricaoFoto(this.cidade, this.descricao);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(this.cidade),
+        backgroundColor: Colors.green,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                this.cidade,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+              margin: EdgeInsets.fromLTRB(80, 80, 80, 0),
+              alignment: AlignmentDirectional.center,
+            ),
+            Container(
+              child: Text(
+                this.descricao,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              margin: EdgeInsets.all(80),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        onPressed: () => {
+          Navigator.pop(context),
+        },
+        child: Icon(
+          Icons.arrow_back,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+    );
+  }
+}
+------------------------------------------------------------------------------------------------------
+12)
+void main() => runApp(
+      MaterialApp(
+        // Inicie o aplicativo com a rota nomeada "/".
+        // Neste exemplo, o aplicativo inica no widget PrimeiraTela.
+        initialRoute: '/',
+        routes: {
+          // Quando navegar pela rota nomeada "/", construa o widget PrimeiraTela.
+          '/': (_) => PrimeiraTela(), //_ = context
+          // Quando navegar pela rota nomeada "/segunda", construa o widget SegundaTela.
+          '/segunda': (_) => SegundaTela(), //_ = context
+          // Quando navegar pela rota nomeada "/segunda", construa o widget SegundaTela.
+          '/terceira': (_) => TerceiraTela(), //_ = context
+          // Quando navegar pela rota nomeada "/segunda", construa o widget SegundaTela.
+          '/quarta': (_) => QuartaTela(), //_ = context
+        },
+      ),
+    );
+
+class PrimeiraTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tela 1 '),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                '1',
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green,
+              ),
+              padding: EdgeInsets.all(40),
+              margin: EdgeInsets.all(25),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Icon(Icons.navigate_next),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/segunda');
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SegundaTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Tela 2"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                '2',
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green,
+              ),
+              padding: EdgeInsets.all(40),
+              margin: EdgeInsets.all(25),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  child: Icon(Icons.navigate_before),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ElevatedButton(
+                  child: Icon(Icons.navigate_next),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/terceira');
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TerceiraTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Tela 3"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                '3',
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green,
+              ),
+              padding: EdgeInsets.all(40),
+              margin: EdgeInsets.all(25),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  child: Icon(Icons.navigate_before),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ElevatedButton(
+                  child: Icon(Icons.navigate_next),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/quarta');
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class QuartaTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Tela 4"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                '4',
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.green,
+              ),
+              padding: EdgeInsets.all(40),
+              margin: EdgeInsets.all(25),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  child: Icon(Icons.navigate_before),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ElevatedButton(
+                  child: Icon(Icons.navigate_next),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+------------------------------------------------------------------------------------------------------
+13)
+void main() => runApp(
+      MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (context) => PrimeiraTela(),
+          '/segunda': (context) => SegundaTela(),
+          '/terceira': (context) => TerceiraTela(),
+          '/quarta': (context) => QuartaTela(),
+        },
+      ),
+    );
+
+class PrimeiraTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Corpo corpo = Corpo('1');
+    Botao botao = Botao('segunda');
+    return Tela('Primeira Tela', corpo, botao);
+  }
+}
+
+class SegundaTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Corpo corpo = Corpo('2');
+    Botoes botoes = Botoes('terceira');
+    return Tela('Segunda Tela', corpo, botoes);
+  }
+}
+
+class TerceiraTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Corpo corpo = Corpo('3');
+    Botoes botoes = Botoes('quarta');
+    return Tela('Terceira Tela', corpo, botoes);
+  }
+}
+
+class QuartaTela extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Corpo corpo = Corpo('4');
+    Botoes botoes = Botoes('segunda');
+    return Tela('Quarta Tela', corpo, botoes);
+  }
+}
+
+class Corpo extends StatelessWidget {
+  final String texto;
+  Corpo(this.texto);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        '${this.texto}',
+        style: TextStyle(
+          fontSize: 45,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.green,
+      ),
+      padding: EdgeInsets.all(40),
+      margin: EdgeInsets.all(25),
+    );
+  }
+}
+
+class Botao extends StatelessWidget {
+  final String proxima;
+  Botao(this.proxima);
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: Icon(Icons.navigate_next),
+      onPressed: () {
+        Navigator.pushNamed(context, '/${this.proxima}');
+      },
+    );
+  }
+}
+
+class Botoes extends StatelessWidget {
+  final String proxima;
+  Botoes(this.proxima);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
+          child: Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        ElevatedButton(
+          child: Icon(Icons.navigate_next),
+          onPressed: () {
+            Navigator.pushNamed(context, '/${this.proxima}');
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class Tela extends StatelessWidget {
+  final String titulo;
+  final Widget corpo, navegacao;
+  Tela(this.titulo, this.corpo, this.navegacao);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${this.titulo}'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            corpo,
+            navegacao,
+          ],
+        ),
+      ),
+    );
+  }
+}
+------------------------------------------------------------------------------------------------------
+14)
+import 'rota/rota.dart';
+
+void main() => runApp(
+      MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (context) => PrimeiraTela(),
+          '/segunda': (context) => SegundaTela(),
+          '/terceira': (context) => TerceiraTela(),
+        },
+      ),
+    );
+ ------------------------------------------------------------------------------------------------------   
+15) 
+import 'rota/rota.dart';
+void main() => runApp(
+      MaterialApp(
+        home: PrimeiraRota(),
+      ),
+    );
