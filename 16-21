@@ -1,0 +1,1715 @@
+17) 
+
+1)
+void main() => runApp(MeuAplicativo());
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+      routes: {
+        RotaGenerica.caminhoDaRota: (context) => RotaGenerica(),
+      },
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  TextEditingController controller1 = TextEditingController();
+  double convertedFahrenheit = 0;
+  double normalCelsius = 0;
+
+  textToDouble(String textField) {
+    double celsius = double.parse(textField);
+
+    this.normalCelsius = celsius;
+    this.convertedFahrenheit = converter(celsius);
+    return this.convertedFahrenheit;
+  }
+
+  converter(double celsius) => celsius * 1.8 + 32;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Rota 1'),
+      ),
+      body: Column(
+        children: [
+          Container(
+            child: TextField(
+              controller: controller1,
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.clear),
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'temperatura em graus Celsius',
+              ),
+            ),
+            padding: EdgeInsets.all(16.0),
+          ),
+          Container(
+            child: ElevatedButton(
+              child: Text("Navegue para a Segunda Rota"),
+              onPressed: () {
+                textToDouble(controller1.text);
+                Navigator.pushNamed(
+                  context,
+                  RotaGenerica.caminhoDaRota,
+                  arguments: ArgumentosDaRota('Segunda Rota',
+                      this.normalCelsius, this.convertedFahrenheit),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RotaGenerica extends StatelessWidget {
+  static const caminhoDaRota = '/rotaGenerica';
+  @override
+  Widget build(BuildContext context) {
+    ArgumentosDaRota argumentos =
+        ModalRoute.of(context)!.settings.arguments as ArgumentosDaRota;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(argumentos.titulo),
+      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Container(
+          alignment: Alignment.topCenter,
+          child: Text(
+            'Graus Celsius: ${argumentos.celsius.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.green,
+            ),
+          ),
+          padding: EdgeInsets.all(16.0),
+        ),
+        Container(
+          alignment: Alignment.topCenter,
+          child: Text(
+            'Graus Fahrenheit: ${argumentos.fahrenheit.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.red,
+            ),
+          ),
+          padding: EdgeInsets.all(16.0),
+        ),
+      ]),
+    );
+  }
+}
+
+class ArgumentosDaRota {
+  String titulo;
+  double celsius;
+  double fahrenheit;
+  ArgumentosDaRota(this.titulo, this.celsius, this.fahrenheit);
+}
+
+2)
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+      routes: {
+        CotacaoDolar.caminhoDaRota: (context) => CotacaoDolar(),
+        Resultado.caminhoDaRota: (context) => Resultado(),
+      },
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  TextEditingController controller1 = TextEditingController();
+  double valorReais = 0;
+
+  textToDouble(String textField) {
+    double reais = double.parse(textField);
+
+    this.valorReais = reais;
+    return this.valorReais;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Vlw em Real'),
+      ),
+      body: Column(
+        children: [
+          Container(
+            child: TextField(
+              controller: controller1,
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              ],
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.clear),
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'Informe o valor em real',
+              ),
+            ),
+            padding: EdgeInsets.all(16.0),
+          ),
+          Container(
+            child: ElevatedButton(
+              child: Text("Próximo"),
+              onPressed: () {
+                textToDouble(controller1.text);
+                Navigator.pushNamed(
+                  context,
+                  CotacaoDolar.caminhoDaRota,
+                  arguments: ArgumentosDaRota(this.valorReais),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CotacaoDolar extends StatelessWidget {
+  TextEditingController controller1 = TextEditingController();
+
+  double valorDolar = 0;
+
+  textToDouble(double reais, String textField) {
+    double dolar = double.parse(textField);
+
+    double conversao = reais / dolar;
+
+    this.valorDolar = conversao;
+    return this.valorDolar;
+  }
+
+  static const caminhoDaRota = '/cotacaoDolar';
+  @override
+  Widget build(BuildContext context) {
+    ArgumentosDaRota argumentos =
+        ModalRoute.of(context)!.settings.arguments as ArgumentosDaRota;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Cotação"),
+      ),
+      body: Column(children: [
+        Container(
+          child: TextField(
+            controller: controller1,
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'(^\-?\d*\.?\d*)$')),
+            ],
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.clear),
+              ),
+              border: OutlineInputBorder(),
+              labelText: 'Informe a cotação do dólar',
+            ),
+          ),
+          padding: EdgeInsets.all(16.0),
+        ),
+        Container(
+          child: ElevatedButton(
+            child: Text("Próximo"),
+            onPressed: () {
+              textToDouble(argumentos.reais, controller1.text);
+              Navigator.pushNamed(
+                context,
+                Resultado.caminhoDaRota,
+                arguments:
+                    ArgumentosSegundaRota(argumentos.reais, this.valorDolar),
+              );
+            },
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+class Resultado extends StatelessWidget {
+  static const caminhoDaRota = '/resultado';
+  @override
+  Widget build(BuildContext context) {
+    ArgumentosSegundaRota argumentos =
+        ModalRoute.of(context)!.settings.arguments as ArgumentosSegundaRota;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Resultado"),
+      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Container(
+          alignment: Alignment.topCenter,
+          child: Text(
+            'Reais: ${argumentos.reais.toStringAsFixed(2)} = USD ${argumentos.dolar.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.green,
+            ),
+          ),
+          padding: EdgeInsets.all(16.0),
+        ),
+      ]),
+    );
+  }
+}
+
+class ArgumentosDaRota {
+  double reais;
+  ArgumentosDaRota(this.reais);
+}
+
+class ArgumentosSegundaRota {
+  double reais;
+  double dolar;
+  ArgumentosSegundaRota(this.reais, this.dolar);
+}
+
+3)
+void main() => runApp(MaterialApp(
+      home: Carrossel(),
+      routes: {Resultado.caminhoDaRota: (context) => Resultado()},
+    ));
+
+class Carrossel extends StatefulWidget {
+  @override
+  CarrosselState createState() => CarrosselState();
+}
+
+class CarrosselState extends State<Carrossel> {
+  int indice = 0;
+
+  List<Map> imagens = [
+    {
+      'arquivo': 'img/lasanha.jpg',
+      'titulo': 'Foto de lasanha',
+      'descricao': 'Uma bandeja com lasanha'
+    },
+    {
+      'arquivo': 'img/salpicao.jpg',
+      'titulo': 'Foto de Salpicão',
+      'descricao': 'Um prato com salpicão'
+    },
+    {
+      'arquivo': 'img/panqueca.jpg',
+      'titulo': 'Foto de Panquecas',
+      'descricao': 'Um prato com panquecas e chocolate em cima'
+    },
+    {
+      'arquivo': 'img/torta_de_limao.jpg',
+      'titulo': 'Foto de Torta de Limão',
+      'descricao': 'Torta de limão em uma bandeja'
+    }
+  ];
+
+  void anterior() =>
+      setState(() => indice = indice > 0 ? indice - 1 : imagens.length - 1);
+  void posterior() =>
+      setState(() => indice = indice < imagens.length - 1 ? indice + 1 : 0);
+  Stack imagem() => Stack(
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                Resultado.caminhoDaRota,
+                arguments: ArgumentosDaRota(
+                    imagens[indice]["titulo"], imagens[indice]["descricao"]),
+              );
+            },
+            child: Container(
+              height: 400,
+              width: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
+                image: DecorationImage(
+                  image: AssetImage(imagens[indice]["arquivo"]),
+                  fit: BoxFit.cover,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 375,
+            left: 25,
+            right: 25,
+            child: PainelPontos(
+              numeroPontos: imagens.length,
+              indice: indice,
+            ),
+          ),
+        ],
+      );
+
+  Row cursor() => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: ElevatedButton(
+              child: Icon(Icons.arrow_left),
+              onPressed: anterior,
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(13),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: ElevatedButton(
+              child: Icon(Icons.arrow_right),
+              onPressed: posterior,
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(13),
+              ),
+            ),
+          ),
+        ],
+      );
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Carrossel'),
+        centerTitle: true,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          imagem(),
+          cursor(),
+        ],
+      ),
+    );
+  }
+}
+
+class PainelPontos extends StatelessWidget {
+  final int? numeroPontos;
+  final int? indice;
+  PainelPontos({this.numeroPontos, this.indice});
+  Widget fotoInativa() {
+    return Padding(
+      padding: EdgeInsets.only(left: 3, right: 3),
+      child: Container(
+        height: 8,
+        width: 8,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(4),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 0.3,
+              blurRadius: 3,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget fotoAtiva() {
+    return Padding(
+      padding: EdgeInsets.only(left: 3, right: 3),
+      child: Container(
+        height: 11,
+        width: 11,
+        decoration: BoxDecoration(
+          color: Colors.amberAccent,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.orangeAccent,
+              spreadRadius: 0.3,
+              blurRadius: 3,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> gerarPainelPontos() {
+    List<Widget> pontos = [];
+    for (int i = 0; i < this.numeroPontos!; i++)
+      pontos.add(i == indice ? fotoAtiva() : fotoInativa());
+    return pontos;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: this.gerarPainelPontos(),
+      ),
+    );
+  }
+}
+
+class Resultado extends StatelessWidget {
+  static const caminhoDaRota = '/resultado';
+  @override
+  Widget build(BuildContext context) {
+    ArgumentosDaRota argumentos =
+        ModalRoute.of(context)!.settings.arguments as ArgumentosDaRota;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(argumentos.titulo),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            alignment: Alignment.topCenter,
+            child: Text(
+              'Título: ${argumentos.titulo}',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            padding: EdgeInsets.all(16.0),
+          ),
+          Container(
+            alignment: Alignment.topCenter,
+            child: Text(
+              'Descrição: ${argumentos.descricao}',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+            padding: EdgeInsets.all(16.0),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ArgumentosDaRota {
+  String titulo;
+  String descricao;
+  ArgumentosDaRota(this.titulo, this.descricao);
+}
+
+18)
+1)
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Primeira Rota'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              accountName: Text("Ana"),
+              accountEmail: Text("ana@ana.com.br"),
+              currentAccountPicture: CircleAvatar(
+                radius: 30.0,
+                backgroundImage: NetworkImage(
+                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                backgroundColor: Colors.transparent,
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.video_collection),
+              title: Text("Rota 02"),
+              subtitle: Text("Siga para a Rota 02."),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(_NewPage('Segunda')),
+            ),
+            ListTile(
+              leading: Icon(Icons.analytics),
+              title: Text("Rota 03"),
+              subtitle: Text("Siga para a Rota 03"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(_NewPage('Terceira')),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Rota 1"),
+              subtitle: Text("Voltar para a Rota 1"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                print('Voltar para a Rota 1.');
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: const Text('Corpo'),
+      ),
+    );
+  }
+}
+
+class _NewPage extends MaterialPageRoute<void> {
+  _NewPage(String id)
+      : super(builder: (BuildContext context) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('$id rota'),
+                elevation: 1.0,
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(80.0),
+                      child: Text(
+                        "$id Rota",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                        child: Text("Volte na primeira Rota"),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(300.0, 80.0)),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PrimeiraRota()),
+                          );
+                        })
+                  ],
+                ),
+              ));
+        });
+}
+
+2)
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Rota 1'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              accountName: Text("Ana"),
+              accountEmail: Text("ana@ana.com.br"),
+              currentAccountPicture: CircleAvatar(
+                radius: 30.0,
+                backgroundImage: AssetImage('img/ana.jpg'),
+                backgroundColor: Colors.transparent,
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.video_collection),
+              title: Text("Rota 02"),
+              subtitle: Text("Siga para a Rota 02."),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(_NewPage('Segunda')),
+            ),
+            ListTile(
+              leading: Icon(Icons.analytics),
+              title: Text("Rota 03"),
+              subtitle: Text("Siga para a Rota 03"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(_NewPage('Terceira')),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Rota 01"),
+              subtitle: Text("Voltar para a Rota 01"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                print('Voltar para a Rota 01.');
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: const Text('Corpo'),
+      ),
+    );
+  }
+}
+
+class _NewPage extends MaterialPageRoute<void> {
+  _NewPage(String id)
+      : super(builder: (BuildContext context) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('$id rota'),
+                elevation: 1.0,
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(80.0),
+                      child: Text(
+                        "$id Rota",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                        child: Text("Voltar para a primeira Rota"),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(300.0, 80.0)),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PrimeiraRota()),
+                          );
+                        })
+                  ],
+                ),
+              ));
+        });
+}
+
+3)
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Primeira Rota'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              accountName: Text("Ana"),
+              accountEmail: Text("ana@ana.com.br"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Text(
+                  "A",
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.video_collection),
+              title: Text("Rota 02"),
+              subtitle: Text("Siga para a Rota 02."),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(_NewPage('Segunda')),
+            ),
+            ListTile(
+              leading: Icon(Icons.analytics),
+              title: Text("Rota 03"),
+              subtitle: Text("Siga para a Rota 03"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () => Navigator.of(context).push(_NewPage('Terceira')),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Rota 01"),
+              subtitle: Text("Voltar para a Rota 01"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                print('Voltar para a Rota 01.');
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: const Text('Corpo'),
+      ),
+    );
+  }
+}
+
+class _NewPage extends MaterialPageRoute<void> {
+  _NewPage(String id)
+      : super(builder: (BuildContext context) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('$id rota'),
+                elevation: 1.0,
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(80.0),
+                      child: Text(
+                        "$id Rota",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                        child: Text("Voltar para a primeira Rota"),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(300.0, 80.0)),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PrimeiraRota()),
+                          );
+                        })
+                  ],
+                ),
+              ));
+        });
+}
+
+4)
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Primeira Rota'),
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.amber,
+          child: ListView(
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                ),
+                accountName: Text("Ana"),
+                accountEmail: Text("ana@ana.com.br"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Text(
+                    "A",
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.video_collection),
+                title: Text("Rota 02"),
+                subtitle: Text("Siga para a Rota 02."),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          RotaGenerica('Segunda Rota', Colors.blue[900]),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.analytics),
+                title: Text("Rota 03"),
+                subtitle: Text("Siga para a Rota 03"),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          RotaGenerica('Terceira Rota', Colors.purple[900]),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Rota 01"),
+                subtitle: Text("Voltar para a Rota 01"),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  print('Voltar para a Rota 01.');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: Center(
+        child: const Text('Corpo'),
+      ),
+    );
+  }
+}
+
+class RotaGenerica extends StatelessWidget {
+  final String titulo;
+  final Color? cor;
+
+  RotaGenerica(this.titulo, this.cor);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${this.titulo}'),
+      ),
+      body: Container(
+        color: this.cor,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(80.0),
+                child: Text(
+                  "${this.titulo} Rota",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                  child: Text("Voltar para a primeira Rota"),
+                  style:
+                      ElevatedButton.styleFrom(minimumSize: Size(300.0, 80.0)),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PrimeiraRota()),
+                    );
+                  })
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+5)
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PrimeiraRota(),
+    );
+  }
+}
+
+class PrimeiraRota extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Primeira Rota'),
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.amber,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 230,
+                child: UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                  ),
+                  accountName: Text("Ana"),
+                  accountEmail: Text("ana@ana.com.br"),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      "A",
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 130,
+                child: ListTile(
+                  leading: Icon(Icons.video_collection),
+                  title: Text("Rota 02"),
+                  subtitle: Text("Siga para a Rota 02."),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RotaGenerica('Segunda Rota', Colors.blue[900]),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 130,
+                child: ListTile(
+                  leading: Icon(Icons.analytics),
+                  title: Text("Rota 03"),
+                  subtitle: Text("Siga para a Rota 03"),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RotaGenerica('Terceira Rota', Colors.purple[900]),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 130,
+                child: ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text("Rota 01"),
+                  subtitle: Text("Voltar para a Rota 01"),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () {
+                    print('Voltar para a Rota 01.');
+                    Navigator.pop(context);
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      body: Center(
+        child: const Text('Corpo'),
+      ),
+    );
+  }
+}
+
+class RotaGenerica extends StatelessWidget {
+  final String titulo;
+  final Color? cor;
+
+  RotaGenerica(this.titulo, this.cor);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${this.titulo}'),
+      ),
+      body: Container(
+        color: this.cor,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(80.0),
+                child: Text(
+                  "${this.titulo} Rota",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                  child: Text("Voltar para a primeira Rota"),
+                  style:
+                      ElevatedButton.styleFrom(minimumSize: Size(300.0, 80.0)),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PrimeiraRota()),
+                    );
+                  })
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+19)
+class Transporte {
+  final String titulo;
+  final IconData icone;
+  const Transporte(this.titulo, this.icone);
+}
+
+const List<Transporte> transportes = <Transporte>[
+  Transporte('Carro', Icons.directions_car),
+  Transporte('Bicicleta', Icons.directions_bike),
+  Transporte('Barco', Icons.directions_boat),
+  Transporte('Ônibus', Icons.directions_bus),
+  Transporte('Trem', Icons.directions_railway),
+];
+void main() => runApp(MeuAplicativo());
+
+class MeuAplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+        home: PrimeiraRota(),
+        debugShowCheckedModeBanner: false,
+      );
+}
+
+class PrimeiraRota extends StatefulWidget {
+  @override
+  PrimeiraRotaState createState() => PrimeiraRotaState();
+}
+
+class PrimeiraRotaState extends State<PrimeiraRota> {
+  Transporte transporte = transportes[0];
+  void selecionar(Transporte transporteEscolhido) =>
+      setState(() => this.transporte = transporteEscolhido);
+  List<PopupMenuItem<Transporte>> getListaItensMenu() {
+    List<PopupMenuItem<Transporte>> lista;
+    lista = transportes.skip(2).map(
+      (Transporte transporte) {
+        return PopupMenuItem<Transporte>(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Veiculo(transporte)),
+            );
+          },
+          value: transporte,
+          child: Text(transporte.titulo),
+        );
+      },
+    ).toList();
+    return lista;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.video_collection),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SegundaRota()),
+          ),
+          tooltip: 'Coleção de Vídeos',
+        ),
+        title: Text('Primeira Rota'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(transportes[0].icone),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Veiculo(transportes[0])),
+            ),
+          ),
+          IconButton(
+            icon: Icon(transportes[1].icone),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Veiculo(transportes[1])),
+            ),
+          ),
+          PopupMenuButton<Transporte>(
+            onSelected: selecionar,
+            itemBuilder: (BuildContext context) => getListaItensMenu(),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Cartao(this.transporte),
+      ),
+    );
+  }
+}
+
+class SegundaRota extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Segunda Rota"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('Voltar para a Primeira Rota'),
+        ),
+      ),
+    );
+  }
+}
+
+class Veiculo extends StatelessWidget {
+  final Transporte transporte;
+  Veiculo(this.transporte);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(transporte.titulo)),
+      body: Card(
+        color: Colors.white,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                this.transporte.icone,
+                size: 128,
+                color: Colors.grey[500],
+              ),
+              Text(
+                this.transporte.titulo,
+                style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.grey[500],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Voltar para a Primeira Rota'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Cartao extends StatelessWidget {
+  final Transporte transporte;
+  Cartao(this.transporte);
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              this.transporte.icone,
+              size: 128,
+              color: Colors.grey[500],
+            ),
+            Text(
+              this.transporte.titulo,
+              style: TextStyle(
+                fontSize: 40,
+                color: Colors.grey[500],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+20)
+void main() => runApp(Aplicativo());
+
+class Aplicativo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Home(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  HomeState createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
+  static const List<Widget> telas = <Widget>[
+    Image(
+      image: NetworkImage(
+          'https://images.unsplash.com/photo-1547721064-da6cfb341d50'),
+    ),
+    Image(
+      image: NetworkImage(
+          'https://flutter.io/images/catalog-widget-placeholder.png'),
+    ),
+    Image(
+      image: NetworkImage(
+          'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+    ),
+  ];
+  int indice = 0;
+  static const TextStyle styleText =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  void select(int indice) {
+    setState(() => this.indice = indice);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Página Inicial'),
+      ),
+      body: Center(
+        child: telas.elementAt(this.indice),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: 'Animais',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.code),
+            label: 'Programação',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant),
+            label: 'Alimentação',
+          ),
+        ],
+        currentIndex: this.indice,
+        selectedItemColor: Colors.amber[800],
+        onTap: select,
+      ),
+    );
+  }
+}
+
+21)
+main() => runApp(
+      MaterialApp(
+        home: Inicio(),
+        debugShowCheckedModeBanner: false,
+      ),
+    );
+
+class Inicio extends StatefulWidget {
+  @override
+  InicioState createState() => InicioState();
+}
+
+class InicioState extends State<Inicio> {
+  int indice = 0;
+  final List<Widget> rotas = [
+    PrimeiraRota(),
+    SegundaRota(),
+  ];
+  void aoPressionar(int indiceRotaSelecionada) {
+    setState(
+      () {
+        this.indice = indiceRotaSelecionada;
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: rotas[this.indice],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: this.indice,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Primeira Rota',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assessment),
+            label: 'Segunda Rota',
+          ),
+        ],
+        onTap: (int indiceRotaEscolhida) {
+          aoPressionar(indiceRotaEscolhida);
+        },
+      ),
+    );
+  }
+}
+
+class Compra extends StatefulWidget {
+  @override
+  CompraState createState() => CompraState();
+}
+
+class CompraState extends State<Compra> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(), body: Center(child: Text("Comprado!")));
+  }
+}
+
+class Detalhe extends StatefulWidget {
+  @override
+  DetalheState createState() => DetalheState();
+}
+
+class DetalheState extends State<Detalhe> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(40),
+            child: Center(
+              child: Text(
+                'Galeria',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Cartao(
+            titulo: 'Imagem 01',
+            descricao: 'Descrição 1',
+            preco: 5.59,
+            url:
+                'https://images.pexels.com/photos/213795/pexels-photo-213795.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            isDetail: true,
+          ),
+          Cartao(
+            titulo: 'Imagem 02',
+            descricao: 'Descrição 2',
+            preco: 3.88,
+            url:
+                'https://images.pexels.com/photos/213791/pexels-photo-213791.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            isDetail: true,
+          ),
+          Cartao(
+            titulo: 'Imagem 03',
+            descricao: 'Descrição 3',
+            preco: 2.25,
+            url:
+                'https://images.pexels.com/photos/213797/pexels-photo-213797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            isDetail: true,
+          ),
+          Cartao(
+            titulo: 'Imagem 04',
+            descricao: 'Descrição 4',
+            preco: 1.99,
+            url:
+                'https://images.pexels.com/photos/213798/pexels-photo-213798.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            isDetail: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PrimeiraRota extends StatefulWidget {
+  @override
+  PrimeiraRotaState createState() => PrimeiraRotaState();
+}
+
+class PrimeiraRotaState extends State<PrimeiraRota> {
+  @override
+  Widget build(BuildContext context) {
+    TextStyle estilo = TextStyle(
+      fontSize: 30,
+      fontWeight: FontWeight.bold,
+      color: Colors.green,
+    );
+    return Center(
+      child: Text(
+        'Primeira Rota',
+        style: estilo,
+      ),
+    );
+  }
+}
+
+class SegundaRota extends StatefulWidget {
+  @override
+  SegundaRotaState createState() => SegundaRotaState();
+}
+
+class SegundaRotaState extends State<SegundaRota> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(40),
+          child: Center(
+            child: Text(
+              'Galeria',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Cartao(
+          titulo: 'Imagem 01',
+          descricao: 'Descrição 1',
+          preco: 5.59,
+          url:
+              'https://images.pexels.com/photos/213795/pexels-photo-213795.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          isDetail: true,
+        ),
+        Cartao(
+          titulo: 'Imagem 02',
+          descricao: 'Descrição 2',
+          preco: 3.88,
+          url:
+              'https://images.pexels.com/photos/213791/pexels-photo-213791.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          isDetail: true,
+        ),
+        Cartao(
+          titulo: 'Imagem 03',
+          descricao: 'Descrição 3',
+          preco: 2.25,
+          url:
+              'https://images.pexels.com/photos/213797/pexels-photo-213797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          isDetail: true,
+        ),
+        Cartao(
+          titulo: 'Imagem 04',
+          descricao: 'Descrição 4',
+          preco: 1.99,
+          url:
+              'https://images.pexels.com/photos/213798/pexels-photo-213798.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+          isDetail: true,
+        ),
+      ],
+    );
+  }
+}
+
+class Cartao extends StatelessWidget {
+  final String titulo;
+  final String descricao;
+  final double preco;
+  final String url;
+  final bool isDetail;
+  Cartao({
+    required this.titulo,
+    required this.descricao,
+    required this.preco,
+    required this.url,
+    required this.isDetail,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.grey[100],
+      margin: EdgeInsets.fromLTRB(30, 5, 30, 15),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(4),
+              child: Image(
+                image: NetworkImage(this.url),
+                height: 200,
+                width: 400,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(4),
+              child: Text(
+                this.titulo,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(4),
+              child: Text(
+                this.descricao,
+                maxLines: !isDetail ? 1 : null,
+                overflow: !isDetail ? TextOverflow.ellipsis : null,
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(4),
+              child: Text(
+                'R\$ ${this.preco.toStringAsFixed(2)}',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                TextButton(
+                  child: Text('DETALHE'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Detalhe()),
+                    );
+                  },
+                ),
+                TextButton(
+                  child: Text('COMPRE'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Compra()),
+                    );
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
